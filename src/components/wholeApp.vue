@@ -17,28 +17,30 @@
             </div>
         </div>
         <h1 class="title">Save <span class="inner">the necessary</span> days</h1>
-        <div class="container">
-            <div v-for="month in months" :key="month">
-            <h3 class="yilOyi">{{month}}</h3>
-            <div class="month">
-                <span v-for="weekday in weekdays" :key="weekday" class="inlineBlock">
-                    {{weekday}}
-                </span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span v-for="day in wholeYear()" :key="day.getTime()">
-                    <span 
-                        class="circle" 
-                        v-if="months[day.getMonth()] == month"
-                        @click="saveNote(day)"
-                        :class="{numberActive:getActive(day)}"
-                    >
-                        {{day.getDate()}}
+        <div class="center">
+            <div class="container">
+                <div v-for="month in months" :key="month">
+                <h3 class="yilOyi">{{month}}</h3>
+                <div class="month">
+                    <span v-for="weekday in weekdays" :key="weekday" class="inlineBlock">
+                        {{weekday}}
                     </span>
-                </span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span v-for="day in wholeYear()" :key="day.getTime()">
+                        <span 
+                            class="circle" 
+                            v-if="months[day.getMonth()] == month"
+                            @click="saveNote(day)"
+                            :class="{numberActive:getActive(day)}"
+                        >
+                            {{day.getDate()}}
+                        </span>
+                    </span>
+                </div>
             </div>
         </div>
         </div> 
@@ -186,23 +188,32 @@
     margin:0;
     padding:0;
 }
+.center{
+    overflow: hidden;
+    
+}
 .container{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
     margin: 1.5rem;
-    width: 60vw;
+    width: 100%;
+    justify-content: center;
     text-align: center;
 }
 .container>div{
+    text-align: center;
     border: 1px solid black;
     border-radius:20px;
     padding:0.1rem;
     background: #F4DB7D;
+    width: 42%;
 }
 .month{
  display: grid;
- grid-template-columns: repeat(7,1fr);    
+ grid-template-columns: repeat(7,1fr); 
 }
 .inlineBlock{
  color:black;
@@ -321,14 +332,49 @@
     background: #361999;
     color:#f3f3f3;
 }
-@media screen and (max-width:1700px) {
-    .container{
-        grid-template-columns: 1fr;
-    }
-}
-@media screen and (max-width:1000px) {
-   .inlineBlock{
-       font-size: 10px;
+
+@media screen and (max-width:1100px) {
+   .container>div{
+    width: 55%;
    }
+}
+
+@media screen and (max-width:1000px) {
+   .container>div{
+    width: 60%;
+   }
+}
+
+@media screen and (max-width:950px) {
+   .container>div{
+    width: 70%;
+   }
+   .inlineBlock{
+    font-size:12px;
+   }
+   .circle{
+    width:10px;
+    height: 10px;
+    padding:10px;
+    font-size: .8rem;
+   }
+}
+
+@media screen and (max-width:470px) {
+   .circle{
+        margin: 5px;
+        width:10px;
+        height: 10px;
+        font-size: 0.6rem;
+    }
+    .center{
+        overflow: auto;
+    }
+    .inlineBlock{
+        font-size:8px;
+   }
+    .container>div{
+        width: 100%;
+    }
 }
 </style>
